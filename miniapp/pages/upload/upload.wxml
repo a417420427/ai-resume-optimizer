@@ -1,0 +1,67 @@
+<view class="container">
+  <view class="upload-area" bindtap="chooseFile">
+    <text class="upload-icon">{{filePath ? '✅' : '📄'}}</text>
+    <text class="upload-text" wx:if="{{!filePath}}">点击选择简历文件</text>
+    <text class="upload-text" wx:if="{{filePath}}">{{fileName}}</text>
+    <text class="upload-hint">支持 PDF、DOCX、TXT，最大 10MB</text>
+  </view>
+
+  <view class="form">
+    <view class="form-item">
+      <text class="form-label">目标职位</text>
+      <input class="form-input" placeholder="如：后端开发工程师" bindinput="onPositionInput" />
+    </view>
+    <view class="form-item">
+      <text class="form-label">目标行业</text>
+      <input class="form-input" placeholder="如：互联网" bindinput="onIndustryInput" />
+    </view>
+    <view class="form-item">
+      <text class="form-label">语言</text>
+      <picker class="form-input" value="{{languageIndex}}" range="{{languages}}" bindchange="onLanguageChange">
+        <text>{{languages[languageIndex]}}</text>
+      </picker>
+    </view>
+    <view class="form-item">
+      <text class="form-label">风格</text>
+      <picker class="form-input" value="{{toneIndex}}" range="{{tones}}" bindchange="onToneChange">
+        <text>{{tones[toneIndex]}}</text>
+      </picker>
+    </view>
+  </view>
+
+  <button class="btn-submit {{!filePath ? 'disabled' : ''}}" disabled="{{!filePath || loading}}" bindtap="uploadResume">
+    <text wx:if="{{!loading}}">开始 AI 优化</text>
+    <text wx:if="{{loading}}">AI 分析中...</text>
+  </button>
+
+  <view class="result" wx:if="{{result}}">
+    <view class="score-section">
+      <text class="score-label">ATS 兼容性评分</text>
+      <text class="score-value" style="color: {{scoreColor(result.score)}}">{{result.score}}分</text>
+      <progress class="score-bar" percent="{{result.score}}" stroke-width="12" activeColor="{{scoreColor(result.score)}}" backgroundColor="#eee" />
+    </view>
+
+    <text class="summary">{{result.summary}}</text>
+
+    <view class="suggestions" wx:if="{{result.suggestions && result.suggestions.length > 0}}">
+      <text class="section-title">优化建议</text>
+      <view class="suggestion-item" wx:for="{{result.suggestions}}" wx:key="index">
+        <view class="suggestion-header">
+          <text class="suggestion-tag severity-{{item.severity}}">{{item.severity === 'high' ? '重要' : item.severity === 'medium' ? '中等' : '建议'}}</text>
+          <text class="suggestion-title">{{item.title}}</text>
+        </view>
+        <text class="suggestion-desc">{{item.description}}</text>
+        <text class="suggestion-advice">{{item.suggestion}}</text>
+      </view>
+    </view>
+
+    <view class="optimized-resume" wx:if="{{result.optimized_text}}">
+      <text class="section-title">优化后的简历</text>
+      <scroll-view scroll-y class="resume-preview">
+        <text>{{result.optimized_text}}</text>
+      </scroll-view>
+    </view>
+
+    <button class="btn-new" bindtap="reset">分析新的简历</button>
+  </view>
+</view>

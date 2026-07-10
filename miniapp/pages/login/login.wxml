@@ -1,0 +1,28 @@
+<view class="container">
+  <view class="header">
+    <text class="logo">📄</text>
+    <text class="title">AI 简历优化</text>
+  </view>
+
+  <view class="tab-bar">
+    <text class="tab {{tab === 'login' ? 'active' : ''}}" bindtap="switchTab" data-tab="login">登录</text>
+    <text class="tab {{tab === 'register' ? 'active' : ''}}" bindtap="switchTab" data-tab="register">注册</text>
+  </view>
+
+  <view class="form" wx:if="{{tab === 'login'}}">
+    <input class="input" placeholder="用户名" value="{{username}}" bindinput="onUsernameInput" />
+    <input class="input" type="safe-password" password placeholder="密码" value="{{password}}" bindinput="onPasswordInput" />
+    <button class="btn-submit" bindtap="handleLogin" disabled="{{!username || !password || loading}}">
+      {{loading ? '登录中...' : '登录'}}
+    </button>
+  </view>
+
+  <view class="form" wx:if="{{tab === 'register'}}">
+    <input class="input" placeholder="用户名" value="{{regUsername}}" bindinput="onRegUsernameInput" />
+    <input class="input" placeholder="邮箱（选填）" value="{{regEmail}}" bindinput="onRegEmailInput" />
+    <input class="input" type="safe-password" password placeholder="密码（至少6位）" value="{{regPassword}}" bindinput="onRegPasswordInput" />
+    <button class="btn-submit" bindtap="handleRegister" disabled="{{!regUsername || !regPassword || regPassword.length < 6 || loading}}">
+      {{loading ? '注册中...' : '注册'}}
+    </button>
+  </view>
+</view>

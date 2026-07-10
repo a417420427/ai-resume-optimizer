@@ -1,0 +1,37 @@
+<view class="container">
+  <view class="hero">
+    <text class="title">AI 智能简历优化</text>
+    <text class="subtitle">上传简历，AI 自动分析 ATS 评分</text>
+    <text class="subtitle">给出优化建议，帮你通过简历筛选</text>
+  </view>
+
+  <view class="features">
+    <view class="feature-item">
+      <text class="feature-icon">📊</text>
+      <text class="feature-title">ATS 评分</text>
+      <text class="feature-desc">AI 模拟机器筛选，给出评分</text>
+    </view>
+    <view class="feature-item">
+      <text class="feature-icon">🎯</text>
+      <text class="feature-title">关键词分析</text>
+      <text class="feature-desc">匹配行业关键词，提高通过率</text>
+    </view>
+    <view class="feature-item">
+      <text class="feature-icon">✏️</text>
+      <text class="feature-title">内容优化</text>
+      <text class="feature-desc">AI 重写简历内容，突出亮点</text>
+    </view>
+    <view class="feature-item">
+      <text class="feature-icon">🤖</text>
+      <text class="feature-title">AI 问答</text>
+      <text class="feature-desc">与 AI 对话，针对性修改</text>
+    </view>
+  </view>
+
+  <view class="login-section" wx:if="{{!token}}">
+    <button class="btn-login" bindtap="goLogin">登录 / 注册</button>
+    <text class="login-hint">免费使用 3 次</text>
+  </view>
+
+  <button class="btn-start" wx:if="{{token}}" bindtap="goUpload">开始优化简历</button>
+</view>

@@ -1,0 +1,25 @@
+<view class="container">
+  <view class="header">
+    <text class="title">优化记录</text>
+  </view>
+
+  <view class="list" wx:if="{{list.length > 0}}">
+    <view class="item" wx:for="{{list}}" wx:key="id" bindtap="viewResult" data-id="{{item.id}}">
+      <view class="item-header">
+        <text class="item-filename">{{item.original_filename}}</text>
+        <text class="item-type">{{item.file_type.toUpperCase()}}</text>
+      </view>
+      <text class="item-time">{{item.created_at}}</text>
+    </view>
+  </view>
+
+  <view class="empty" wx:if="{{list.length === 0 && !loading}}">
+    <text class="empty-icon">📄</text>
+    <text class="empty-text">还没有优化记录</text>
+    <button class="btn-go" bindtap="goUpload">去优化简历</button>
+  </view>
+
+  <view class="loading" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+</view>
