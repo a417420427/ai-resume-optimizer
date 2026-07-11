@@ -1,0 +1,17 @@
+fastapi
+uvicorn
+python-multipart
+sqlalchemy
+python-dotenv
+openai
+pydantic
+PyMuPDF
+python-docx
+httpx
+python-jose
+bcrypt
+cryptography
+fonttools
+reportlab
+pdfminer.six
+pypdf2
